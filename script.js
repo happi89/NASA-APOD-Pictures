@@ -127,7 +127,5 @@ function removeFromFavorites(itemUrl) {
   };
 };
 
-
-
 // on load
 getNasaPictures();
