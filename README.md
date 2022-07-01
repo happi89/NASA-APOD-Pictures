@@ -20,16 +20,18 @@ Users should be able to:
 
 - View the optimal layout for the app depending on their device's screen size
 - See hover states for all interactive elements on the page
-- Select and submit a number rating
-- See the "Thank you" card state after submitting a rating
+- Be able to add and remove pictures from favorites
+- See a notification that picture was removed or added from favorites
+- Be able to load more pictures.
+- Be able to see full picture when picture is clicked
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![Screenshot from 2022-07-01 18-39-49](https://user-images.githubusercontent.com/101960666/176974919-1916ec1a-a9da-470e-8c11-e55b25962a4f.png)
 
 ### Links
 
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [NASA APOD Pictures](happi89.github.io/nasa-apod-pictures/)
 
 ## My process
 
@@ -37,28 +39,53 @@ Users should be able to:
 
 - Semantic HTML5 markup
 - Flexbox
-- CSS Grid
 - Mobile-first workflow
 
 ### What I learned
 
+learnt about the small tag
 ```html
-<h1>Some HTML code I'm proud of</h1>
+<small></small>
 ```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
+
+functions to add and remove pictures from favorites
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+function saveToFavorites(itemUrl) {
+  resultsArray.forEach((item) => {
+    if(item.url.includes(itemUrl) && !favorites[itemUrl]) {
+      favorites[itemUrl] = item;
+      // show confirmation 
+      saveConfirmed.textContent = 'SAVED!'
+      saveConfirmed.hidden = false;
+      setTimeout(() => {
+        saveConfirmed.hidden = true;
+      }, 2000);
+      // save favorie in local storage
+      localStorage.setItem('FavoriteNasaPictures', JSON.stringify(favorites));
+    };
+  });
+};
+
+function removeFromFavorites(itemUrl) {
+  if(favorites[itemUrl]) {
+    delete favorites[itemUrl];
+    // show confirmation 
+    saveConfirmed.textContent = 'REMOVED!';
+    saveConfirmed.hidden = false;
+    setTimeout(() => {
+      saveConfirmed.hidden = true;
+    }, 2000);
+    // save favorie in local storage
+    localStorage.setItem('FavoriteNasaPictures', JSON.stringify(favorites));
+    handleUi('fav');
+  };
+};
 ```
 
 ### Continued development
 
+I learnt how to use api's and I will be making a weather app using the mars weather API!
+
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [NASA API's](https://api.nasa.gov/) - I will be making a weather app for the weather on mars
