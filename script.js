@@ -12,6 +12,8 @@ let favorites = {};
 
 function createDOMNodes(page) {
   const currentArray = page === 'results' ? resultsArray : Object.values(favorites);
+  console.log(currentArray)
+
   currentArray.forEach((result) => {
     // card 
     const card = document.createElement('div');
@@ -67,6 +69,15 @@ function createDOMNodes(page) {
 }
 
 function handleUi(page) {
+  if(page === 'results') {
+    resultsNav.classList.remove('hidden');
+    favoritesNav.classList.add('hidden');
+  } else {
+    resultsNav.classList.add('hidden');
+    favoritesNav.classList.remove('hidden');
+    window.scrollTo({top: 0, scroll: 'instant'});
+  }
+
   if(localStorage.getItem('FavoriteNasaPictures')) {
     favorites = JSON.parse(localStorage.getItem('FavoriteNasaPictures'));
   }
@@ -78,7 +89,7 @@ async function getNasaPictures() {
   try {
     const response = await fetch(apiUrl);
     resultsArray = await response.json();
-    handleUi('fav');
+    handleUi('results');
   } catch(err) {
     console.log(err)
   }
